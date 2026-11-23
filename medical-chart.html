@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>مراقبة المؤشرات الحيوية | Lunar Med Pod | إيلان رامون 2027</title>
+  <style>
+    :root { color-scheme: light; --ink:#19273d; --mute:#5c6980; --blue:#1663c7; --violet:#773abd; --green:#147b6d; --bg:#eff5fa; --line:#dbe5ef; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:Tahoma,Arial,'Segoe UI',sans-serif; background:var(--bg); color:var(--ink); line-height:1.7; }
+    header { background:linear-gradient(125deg,#081c3c,#143a71 58%,#28677f); color:white; padding:35px 20px 45px; }
+    .wrap { max-width:1050px; margin:auto; padding:0 20px; }
+    .tag { display:inline-block; border:1px solid #8ac7ed; border-radius:30px; padding:3px 13px; color:#d8f3ff; font-size:13px; }
+    h1 { margin:12px 0 7px; font-size:clamp(26px,4vw,40px); line-height:1.3; }
+    .intro { max-width:790px; color:#e2f0ff; margin:0; }
+    main { margin-top:-22px; padding-bottom:50px; }
+    section { background:white; border:1px solid #dde7f0; box-shadow:0 5px 20px #0b31520a; border-radius:18px; padding:22px; margin-bottom:16px; }
+    h2 { font-size:20px; margin:0 0 14px; }
+    .note { background:#f7f9fc; border-right:4px solid #a1b1c3; padding:12px 16px; border-radius:8px; font-size:14px; color:#3b4e68; margin-top:16px; }
+    .toolbar { display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:space-between; }
+    .controls { display:flex; flex-wrap:wrap; gap:8px; }
+    button { font:inherit; cursor:pointer; border:1px solid #c9d7e7; background:#fff; color:#173d70; padding:8px 13px; border-radius:10px; font-weight:600; }
+    button:hover { background:#edf5ff; }
+    button[aria-pressed="true"] { background:#173e75; color:#fff; border-color:#173e75; }
+    button:focus-visible,input:focus-visible { outline:3px solid #f6b543; outline-offset:2px; }
+    .muted { color:var(--mute); font-size:14px; }
+    .panels { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin:16px 0; }
+    .panel { background:#f7fafd; border:1px solid var(--line); border-radius:13px; padding:14px; }
+    .panel .value { font-size:clamp(24px,4vw,34px); line-height:1.5; font-weight:800; color:#173e75; white-space:nowrap; }
+    .panel label { display:block; color:#536780; font-size:14px; }
+    .panel small { display:block; color:#69798c; }
+    .chartwrap { background:#fbfdff; border:1px solid var(--line); border-radius:12px; padding:8px; }
+    svg { display:block; width:100%; height:auto; overflow:visible; }
+    .steps { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:8px; margin-top:15px; }
+    .steps button { min-height:70px; padding:7px 6px; font-size:13px; line-height:1.5; }
+    .steps button strong { display:block; font-size:16px; }
+    .detail { border:1px solid #cad8e8; background:#f2f7fd; padding:13px; border-radius:12px; margin-top:15px; }
+    .below { display:flex; gap:10px; flex-wrap:wrap; justify-content:space-between; margin-top:14px; align-items:center; }
+    .legend { display:flex; gap:16px; flex-wrap:wrap; color:#65758b; font-size:13px; }
+    .legend span::before { content:'●'; color:var(--blue); margin-left:5px; }
+    .legend span:nth-child(2)::before { color:var(--green); }
+    .method { padding-right:22px; }
+    footer { color:#718096; text-align:center; padding:10px 0 26px; font-size:13px; }
+    @media(max-width:650px) { .panels { grid-template-columns:1fr; } .steps { grid-template-columns:repeat(2,minmax(0,1fr)); } .wrap { padding:0 12px; } section { padding:15px; } .chartwrap { padding:0; } }
+    @media print { header { -webkit-print-color-adjust:exact; print-color-adjust:exact; } button { border:1px solid #999; } section { box-shadow:none; } }
+  </style>
+</head>
+<body>
+  <header><div class="wrap">
+    <div class="tag">مدرسة ابن سينا · مسابقة إيلان رامون 2027 · التحدي الثالث / النشاط الخامس</div>
+    <h1>الرسم البياني الطبي التفاعلي</h1>
+    <p class="intro">مراقبة المؤشرات الحيوية لرائد فضاء في سيناريو تعطل نظام تبريد البدلة قرب فوهة شاكلتون، ودراسة تطورها خلال عملية الإنقاذ باستخدام وحدة <bdi dir="ltr">Lunar Med Pod</bdi>.</p>
+  </div></header>
+  <main class="wrap">
+    <section>
+      <h2>اختر المؤشر الحيوي ثم استكشف مراحل المهمة</h2>
+      <div class="toolbar">
+        <div class="controls" aria-label="اختيار المؤشر الحيوي" id="metricButtons">
+          <button type="button" data-metric="temp" aria-pressed="true">درجة الحرارة</button>
+          <button type="button" data-metric="heart" aria-pressed="false">نبض القلب</button>
+          <button type="button" data-metric="breath" aria-pressed="false">معدل التنفس</button>
+        </div>
+        <div class="muted">اضغط على النقاط في الرسم، أو اختر مرحلة من الأزرار أسفله</div>
+      </div>
+      <div class="panels" aria-live="polite">
+        <div class="panel"><label>درجة حرارة الجسم</label><div class="value"><span id="vTemp">37.0</span> <small style="display:inline;font-size:15px">°C</small></div><small>قياس افتراضي</small></div>
+        <div class="panel"><label>نبض القلب</label><div class="value"><span id="vHeart">78</span> <small style="display:inline;font-size:15px">نبضة/دقيقة</small></div><small>قياس افتراضي</small></div>
+        <div class="panel"><label>معدل التنفس</label><div class="value"><span id="vBreath">16</span> <small style="display:inline;font-size:15px">نفسًا/دقيقة</small></div><small>قياس افتراضي</small></div>
+      </div>
+      <div class="chartwrap">
+        <svg id="chart" viewBox="0 0 920 415" role="img" aria-label="رسم خطي تفاعلي لتغير المؤشر الحيوي المختار بمرور الزمن"></svg>
+      </div>
+      <div class="steps" id="timeline" aria-label="مراحل السيناريو"></div>
+      <div class="detail" aria-live="polite"><strong id="phaseTitle">قبل العطل</strong><div id="phaseDesc">قراءات أولية قبل ظهور الخلل في نظام التبريد.</div></div>
+      <div class="below"><button type="button" id="download">تنزيل البيانات بصيغة CSV</button><div class="legend"><span>المؤشر المختار</span><span>المرحلة المحددة</span></div></div>
+    </section>
+    <section>
+      <h2>كيف نقرأ الرسم البياني؟</h2>
+      <ol class="method">
+        <li>يمثل المحور الأفقي الزمن المنقضي بالدقائق منذ بداية المراقبة.</li>
+        <li>يمثل المحور العمودي قيمة المؤشر الحيوي المختار والوحدة المناسبة له.</li>
+        <li>نقارن الارتفاع أو الانخفاض بين المراحل، ونلاحظ تغير المؤشرات خلال الخلل والاستجابة للطوارئ.</li>
+        <li>نستخدم النتائج لمناقشة أهمية المراقبة المستمرة والاتصال وتبريد الرائد بصورة آمنة.</li>
+      </ol>
+      <div class="note"><strong>تنبيه علمي:</strong> جميع القيم والأحداث هنا افتراضية، صُممت لتعليم تحليل البيانات في مسابقة إيلان رامون. لا تمثل تجربة طبية حقيقية، ولا تُستخدم لتشخيص حالة صحية أو لاتخاذ قرارات علاجية. لا تعني القيم تحسنًا طبيًا مؤكدًا إلا بعد تقييم مختص.</div>
+    </section>
+  </main>
+  <footer>نموذج تعليمي تفاعلي · فريق مدرسة ابن سينا · يعمل دون اتصال بالإنترنت بعد التحميل</footer>
+  <script>
+  (()=>{
+    'use strict';
+    const data = [
+      {t:0,phase:'قبل العطل',temp:37.0,heart:78,breath:16,desc:'قراءات افتراضية أولية قبل ظهور الخلل في نظام تبريد البدلة.'},
+      {t:10,phase:'بداية ارتفاع الحرارة',temp:37.6,heart:96,breath:19,desc:'بدأ خلل التبريد، وتُظهر القراءات تغيرًا تدريجيًا في المؤشرات الحيوية.'},
+      {t:20,phase:'مرحلة الخطر',temp:38.5,heart:120,breath:26,desc:'ازدادت درجة الحرارة وسرعة النبض والتنفس. في هذا السيناريو يُبلَّغ مركز التحكم وتُفعَّل إجراءات الطوارئ.'},
+      {t:30,phase:'أثناء عملية الإنقاذ',temp:38.1,heart:107,breath:22,desc:'بدأت إجراءات الاستجابة الآمنة حسب خطة المهمة. انخفاض الأرقام وحده لا يكفي للحكم طبيًا على الحالة.'},
+      {t:40,phase:'عند القاعدة',temp:37.5,heart:90,breath:18,desc:'وصل الرائد إلى بيئة آمنة للتقييم الطبي. الأرقام توضيحية وليست نتائج علاج حقيقي.'}
+    ];
+    const metrics = {
+      temp:{title:'درجة حرارة الجسم',unit:'°C',min:36.5,max:39,step:0.5,color:'#1663c7',digits:1},
+      heart:{title:'نبض القلب',unit:'نبضة/دقيقة',min:60,max:140,step:20,color:'#773abd',digits:0},
+      breath:{title:'معدل التنفس',unit:'نفسًا/دقيقة',min:10,max:30,step:5,color:'#147b6d',digits:0}
+    };
+    let metric='temp', selected=0;
+    const svg=document.getElementById('chart');
+    const $=id=>document.getElementById(id);
+    const NS='http://www.w3.org/2000/svg';
+    function node(name,attrs={},txt){ const e=document.createElementNS(NS,name);for(const [k,v] of Object.entries(attrs))e.setAttribute(k,String(v));if(txt!==undefined)e.textContent=txt;return e; }
+    function render(){
+      const m=metrics[metric], L=94,R=855,T=50,B=342,H=B-T,W=R-L;
+      const x=i=>L+(i/(data.length-1))*W;
+      const y=v=>B-(v-m.min)/(m.max-m.min)*H;
+      svg.replaceChildren();
+      svg.append(node('text',{x:870,y:25,'text-anchor':'end','font-size':19,'font-weight':700,fill:'#1c3553'},`${m.title} (${m.unit})`));
+      for(let v=m.min;v<=m.max+0.001;v+=m.step){let yy=y(v);svg.append(node('line',{x1:L,y1:yy,x2:R,y2:yy,stroke:'#dce7f2','stroke-width':1}));svg.append(node('text',{x:75,y:yy+5,'text-anchor':'end','font-size':15,fill:'#5a6b83'},Number(v.toFixed(2)).toString()));}
+      data.forEach((p,i)=>{const xx=x(i);svg.append(node('line',{x1:xx,y1:T,x2:xx,y2:B,stroke:'#eff3f8','stroke-width':1}));svg.append(node('text',{x:xx,y:B+30,'text-anchor':'middle','font-size':15,fill:'#576a83'},`${p.t} د`));});
+      svg.append(node('text',{x:(L+R)/2,y:400,'text-anchor':'middle','font-size':15,fill:'#607187'},'الزمن منذ بداية المراقبة (بالدقائق)'));
+      const pts=data.map((p,i)=>`${x(i)},${y(p[metric])}`).join(' ');
+      svg.append(node('polyline',{points:pts,fill:'none',stroke:m.color,'stroke-width':4,'stroke-linejoin':'round','stroke-linecap':'round'}));
+      svg.append(node('line',{x1:x(selected),y1:T,x2:x(selected),y2:B,stroke:'#147b6d','stroke-width':2,'stroke-dasharray':'5 5'}));
+      data.forEach((p,i)=>{
+        const c=node('circle',{cx:x(i),cy:y(p[metric]),r:i===selected?10:7,fill:i===selected?'#147b6d':m.color,stroke:'white','stroke-width':3,tabindex:0,role:'button','aria-label':`${p.phase}: ${p[metric]} ${m.unit}`});
+        c.style.cursor='pointer';c.addEventListener('click',()=>{selected=i;render()});c.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();selected=i;render()}});c.append(node('title',{},`${p.phase}: ${p[metric]} ${m.unit}`));svg.append(c);
+      });
+      $('vTemp').textContent=data[selected].temp.toFixed(1);
+      $('vHeart').textContent=data[selected].heart;
+      $('vBreath').textContent=data[selected].breath;
+      $('phaseTitle').textContent=`الدقيقة ${data[selected].t} – ${data[selected].phase}`;
+      $('phaseDesc').textContent=data[selected].desc;
+      document.querySelectorAll('[data-metric]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.metric===metric)));
+      const timeline=$('timeline');timeline.replaceChildren();
+      data.forEach((p,i)=>{let b=document.createElement('button');b.type='button';b.setAttribute('aria-pressed',String(selected===i));let strong=document.createElement('strong');strong.textContent=`${p.t} دقيقة`;b.append(strong,document.createTextNode(p.phase));b.addEventListener('click',()=>{selected=i;render()});timeline.append(b)});
+    }
+    document.querySelectorAll('[data-metric]').forEach(b=>b.addEventListener('click',()=>{metric=b.dataset.metric;render()}));
+    $('download').addEventListener('click',()=>{
+      const rows=[['الزمن بالدقائق','المرحلة','درجة الحرارة °C','النبض نبضة/دقيقة','معدل التنفس نفس/دقيقة'],...data.map(p=>[p.t,p.phase,p.temp,p.heart,p.breath])];
+      const csv='\ufeff'+rows.map(row=>row.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(',')).join('\r\n');
+      const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});const a=document.createElement('a');const url=URL.createObjectURL(blob);a.href=url;a.download='lunar-med-pod-simulation.csv';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+    });
+    render();
+  })();
+  </script>
+</body>
+</html>
